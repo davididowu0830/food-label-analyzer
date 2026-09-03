@@ -1,9 +1,12 @@
 """
-main.py
 =======
 Entry point for the Food Label Analyzer application.
-Run with: streamlit run main.py
 """
+import os
+import sys
+
+# Force the project root directory into Python's search path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from ui.app_ui import run_app
 
