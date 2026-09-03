@@ -1,11 +1,11 @@
 """
-ui/app_ui.py
 ============
 Streamlit dashboard for Food Label Analyzer.
 """
 import os
 import sys
 
+# Ensure the root directory is available in the Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import streamlit as st
@@ -22,12 +22,24 @@ from exceptions import (
     FoodLogError,
 )
 
+# Initialize service instances
 client = OpenFoodFactsClient()
 analyzer = NutritionAnalyzer()
 allergen_detector = AllergenDetector()
 log_manager = FoodLogManager(filepath="food_log.json")
 
+# Units mapping for clear nutritional display
+NUTRIENT_UNITS = {
+    "energy_kcal": " kcal",
+    "sugars": "g",
+    "salt": "g",
+    "fat": "g",
+    "saturated_fat": "g",
+}
+
+
 def run_app():
+    """Main application layout and control loop."""
     st.set_page_config(page_title="Food Label Analyzer", page_icon="🥗")
     st.title("🥗 Food Label Analyzer")
     st.write("Enter a product name or barcode to see a plain-English breakdown of its label.")
@@ -59,7 +71,12 @@ def run_app():
     if st.session_state.result:
         _render_result(st.session_state.result)
 
-def _fetch_and_analyze(query, search_mode, suggestion_gen):
+
+def _fetch_and_analyze(query: str, search_mode: str, suggestion_gen: MealSuggestionGenerator):
+    """
+    Executes the analysis pipeline: fetch -> analyze -> detect allergens -> explain.
+    Returns a dictionary of analysis artifacts or None on handled errors.
+    """
     try:
         with st.spinner("Looking up product..."):
             if search_mode == "Barcode":
@@ -91,7 +108,9 @@ def _fetch_and_analyze(query, search_mode, suggestion_gen):
         st.warning(f"Limited data: {e}")
     return None
 
-def _render_result(result):
+
+def _render_result(result: dict):
+    """Renders the analysis output, allergen warnings, suggestions, and save action."""
     product = result["product"]
     nutrition_results = result["nutrition_results"]
     allergens = result["allergens"]
@@ -100,7 +119,11 @@ def _render_result(result):
     st.subheader("Nutrition Breakdown (per 100g)")
     for key, info in nutrition_results.items():
         flag = "🔴 HIGH" if info["high"] else "🟢 OK"
-        st.write(f"- **{key.replace('_', ' ').title()}**: {info['value']} (threshold {info['threshold']}) — {flag}")
+        unit = NUTRIENT_UNITS.get(key, "g")
+        st.write(
+            f"- **{key.replace('_', ' ').title()}**: "
+            f"{info['value']}{unit} (threshold: {info['threshold']}{unit}) — {flag}"
+        )
 
     st.subheader("Allergens")
     if product.ingredients_text and allergens:
@@ -123,7 +146,9 @@ def _render_result(result):
         except FoodLogError as e:
             st.error(f"Couldn't save to your food log: {e}")
 
+
 def _show_log():
+    """Renders the saved food log entries inside the sidebar."""
     try:
         log = log_manager.load_log()
     except FoodLogError as e:
