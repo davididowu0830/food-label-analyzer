@@ -1,6 +1,6 @@
 # 🥗 Food Label Analyzer
 
-An intelligent, modular Python application designed to help everyday consumers decode complex food product labels into clear, actionable health insights. By fetching product records from the Open Food Facts worldwide database, the application flags high-risk nutritional metrics (sugars, salts, and saturated fats), detects hidden allergens using regex pattern matching, offers AI-powered dietary recommendations via Google Gemini, and logs food history locally[cite: 1, 2].
+An intelligent, modular Python application designed to help everyday consumers decode complex food product labels into clear, actionable health insights. By fetching product records from the Open Food Facts worldwide database, the application flags high-risk nutritional metrics (sugars, salts, and saturated fats), detects hidden allergens using regex pattern matching, offers AI-powered dietary recommendations via Google Gemini, and logs food history locally.
 
 ---
 
@@ -8,18 +8,18 @@ An intelligent, modular Python application designed to help everyday consumers d
 
 | Team Member | Assigned Layer / Module | Key Responsibilities |
 | :--- | :--- | :--- |
-| **David Idowu** | `ui/app_ui.py`<br>`main.py` | Team Lead, Project Architecture, Streamlit Dashboard & State Management, Pipeline Integration[cite: 1, 2] |
-| **King Akara-Nwaogu** | `services/openfoodfacts_client.py` | Open Food Facts HTTP API integration, Search-a-licious routing, network error handling[cite: 1, 2] |
-| **Olumide Adeleye** | `services/nutrition_analyzer.py` | Per-100g nutrient threshold evaluation, health concern flagging, rule-based fallback summaries[cite: 1, 2] |
-| **Delight James** | `services/allergen_detector.py`<br>`utils/validators.py` | Barcode/number regex validation, text sanitization, and keyword-boundary allergen detection[cite: 1, 2] |
-| **Emmanuel John** | `services/meal_suggestion_gen.py` | Gemini 1.5 Flash API prompt engineering, healthy recipe swaps, graceful offline degradation[cite: 1, 2] |
-| **Nasiteh Kpanja** | `storage/food_log_manager.py` | Local history persistence, defensive file I/O handling, and JSON/CSV serialization[cite: 1, 2] |
+| **David Idowu** | `ui/app_ui.py`<br>`main.py` | Team Lead, Project Architecture, Streamlit Dashboard & State Management, Pipeline Integration |
+| **King Akara-Nwaogu** | `services/openfoodfacts_client.py` | Open Food Facts HTTP API integration, Search-a-licious routing, network error handling |
+| **Olumide Adeleye** | `services/nutrition_analyzer.py` | Per-100g nutrient threshold evaluation, health concern flagging, rule-based fallback summaries |
+| **Delight James** | `services/allergen_detector.py`<br>`utils/validators.py` | Barcode/number regex validation, text sanitization, and keyword-boundary allergen detection |
+| **Emmanuel John** | `services/meal_suggestion_gen.py` | Gemini 1.5 Flash API prompt engineering, healthy recipe swaps, graceful offline degradation |
+| **Nasiteh Kpanja** | `storage/food_log_manager.py` | Local history persistence, defensive file I/O handling, and JSON/CSV serialization |
 
 ---
 
 ## 🏗️ System Architecture & Modularity
 
-The application strictly adheres to Object-Oriented Programming (OOP) principles, Separation of Concerns (SoC), and defensive software design[cite: 1, 2]:
+The application strictly adheres to Object-Oriented Programming (OOP) principles, Separation of Concerns (SoC), and defensive software design:
 
 ```text
 food-label-analyzer/
