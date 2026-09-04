@@ -30,7 +30,7 @@ class MealSuggestionGenerator:
         model: str | None = None,
     ) -> None:
         load_dotenv()
-        self._model = model or os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+        self._model = model or os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
         self._client = None
 
         if client is not None:
