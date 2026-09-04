@@ -8,7 +8,7 @@ An intelligent, modular Python application designed to help everyday consumers d
 
 | Team Member | Assigned Layer / Module | Key Responsibilities |
 | :--- | :--- | :--- |
-| **David Idowu** | `ui/app_ui.py`<br>`main.py` | Team Lead, Project Architecture, Streamlit Dashboard & State Management, Pipeline Integration |
+| **David Idowu** | `ui/app_ui.py`<br>`main.py`<br>`models/food product.py` | Team Lead, Project Architecture, Streamlit Dashboard & State Management, Pipeline Integration |
 | **King Akara-Nwaogu** | `services/openfoodfacts_client.py` | Open Food Facts HTTP API integration, Search-a-licious routing, network error handling |
 | **Olumide Adeleye** | `services/nutrition_analyzer.py` | Per-100g nutrient threshold evaluation, health concern flagging, rule-based fallback summaries |
 | **Delight James** | `services/allergen_detector.py`<br>`utils/validators.py` | Barcode/number regex validation, text sanitization, and keyword-boundary allergen detection |
